@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 vector<int> myArr;
@@ -94,9 +93,12 @@ void createArray()
 {
     cout << "Въведете брой на числата в масива: (1~25)\n";
     cin >> numbersInArray;
+
     if (numbersInArray > 25 || numbersInArray <= 0)
     {
         cout << "Невалидно число за брой на елементи в масива! \n";
+        cin.clear();            // Clear the error state
+        cin.ignore(1024, '\n'); // Discard all characters in the stream
         createArray();
     }
     myArr.resize(numbersInArray);
