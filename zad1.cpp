@@ -6,6 +6,76 @@ using namespace std;
 vector<int> myArr;
 int numbersInArray, sizeOfArray, tempNum;
 
+bool isEmpty();
+void createArray();
+void inputIntegers();
+void vectorSize();
+void printElements();
+float averageNumber(vector<int>);
+string sumOfNonZero(vector<int>);
+void findMax();
+
+int main()
+{
+    int initChoice, choice;
+
+    createArray();
+    inputIntegers();
+
+    do
+    {
+
+        cout << "\n0. Quit" << endl;
+        cout << "1. Ре-инициализирай масива " << endl;
+        cout << "2. Размер на масива " << endl;
+        cout << "3. Елементи в масива " << endl;
+        cout << "4. Средно аритметично на всички числа " << endl;
+        cout << "5. Всички без 0 и сбор" << endl;
+        cout << "6. Mаксимално положително число" << endl;
+        cout << "Вашият избор: ";
+
+        cin >> choice;
+        cout << endl;
+        switch (choice)
+        {
+        case 0:
+            cout << "Return 0!\n";
+            return 0;
+        case 1:
+            createArray();
+            inputIntegers();
+            break;
+        case 2:
+            vectorSize();
+            break;
+        case 3:
+            cout << "Елементи в масива: " << endl;
+            printElements();
+            break;
+        case 4:
+            cout << "Средно аритметично на всички числа: " << averageNumber(myArr) << endl;
+            break;
+        case 5:
+            cout << sumOfNonZero(myArr);
+            break;
+        case 6:
+            findMax();
+            break;
+        default:
+            cout << "Невалиден избор!";
+            break;
+        }
+        if (choice >= 0 && choice <= 6)
+        {
+#ifdef _WIN32
+            system("pause")
+#else __linux__
+            system("read");
+#endif
+        }
+    } while (choice != 0);
+}
+
 bool isEmpty()
 {
     if (myArr.empty())
@@ -101,58 +171,4 @@ void findMax()
     }
     cout << "Най-голямо число в масива: " << max << endl;
     cout << "Неговият индекс: " << index << endl;
-}
-
-int main()
-{
-    int initChoice, choice;
-
-    createArray();
-    inputIntegers();
-
-    do
-    {
-        cout << "\n0. Quit" << endl;
-        cout << "1. Ре-инициализирай масива " << endl;
-        cout << "2. Размер на масива " << endl;
-        cout << "3. Елементи в масива " << endl;
-        cout << "4. Средно аритметично на всички числа " << endl;
-        cout << "5. Всички без 0 и сбор" << endl;
-        cout << "6. Mаксимално положително число" << endl;
-        cout << "Вашият избор: ";
-
-        cin >> choice;
-        cout << endl;
-        switch (choice)
-        {
-        case 0:
-            cout << "Return 0!\n";
-            return 0;
-        case 1:
-            createArray();
-            inputIntegers();
-            break;
-        case 2:
-            vectorSize();
-            break;
-        case 3:
-            cout << "Елементи в масива: " << endl;
-            printElements();
-            break;
-        case 4:
-            cout << "Средно аритметично на всички числа: " << averageNumber(myArr) << endl;
-            break;
-        case 5:
-            cout << sumOfNonZero(myArr);
-            break;
-        case 6:
-            findMax();
-            break;
-        }
-#ifdef _WIN32
-        system("pause")
-#else __linux__
-        system("read");
-#endif
-    } while (choice != 0);
 }
