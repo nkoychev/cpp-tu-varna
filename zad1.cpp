@@ -109,6 +109,13 @@ void inputIntegers()
     for (int i = 0; i < myArr.size(); i++)
     {
         cin >> tempNum;
+        while (!cin)
+        {
+            cin.clear();            // Clear the error state
+            cin.ignore(1024, '\n'); // Discard all characters in the stream
+            cout << "Въведения елемент не е число, въведете отново: " << endl;
+            cin >> tempNum;
+        }
         myArr[i] = tempNum;
     }
     // Cleanup 0 in the end of the vector
