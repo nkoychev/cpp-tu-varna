@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 vector<int> myArr;
@@ -86,6 +87,21 @@ string sumOfNonZero(vector<int> myArr)
                ". 0-те в масива са " + to_string(zeroCounter) + " на брой. \n";
     }
 }
+void findMax()
+{
+    int max = myArr[0];
+    int index;
+    for (int i = 0; i < myArr.size(); i++)
+    {
+        if (myArr[i] > max)
+        {
+            max = myArr[i];
+            index = i;
+        }
+    }
+    cout << "Най-голямо число в масива: " << max << endl;
+    cout << "Неговият индекс: " << index << endl;
+}
 
 int main()
 {
@@ -101,7 +117,7 @@ int main()
         cout << "2. Размер на масива " << endl;
         cout << "3. Елементи в масива " << endl;
         cout << "4. Средно аритметично на всички числа " << endl;
-        cout << "5. Всички без 0 " << endl;
+        cout << "5. Всички без 0 и сбор" << endl;
         cout << "6. Mаксимално положително число" << endl;
         cout << "Вашият избор: ";
 
@@ -128,6 +144,9 @@ int main()
             break;
         case 5:
             cout << sumOfNonZero(myArr);
+            break;
+        case 6:
+            findMax();
             break;
         }
 #ifdef _WIN32
