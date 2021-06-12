@@ -27,8 +27,9 @@ public:
         payment = g;
     }
 };
-
 vector<User> usersArr;
+void createUser();
+
 int main()
 {
     User user0("Иван", "Петров", "Левски", "Китка", "23б", "0889458632", 32.99);
@@ -56,7 +57,7 @@ int main()
             cout << "Return 0!\n";
             return 0;
         case 1:
-            // createUser();
+            createUser();
             // inputIntegers();
             break;
         case 2:
@@ -67,13 +68,13 @@ int main()
             printElements();
             break;
         case 4:
-            // cout << "Средно аритметично на всички числа: " << averageNumber(myArr) << endl;
+
             break;
         case 5:
-            // cout << sumOfNonZero(myArr);
+
             break;
         case 6:
-            // findMax();
+
             break;
         default:
             cout << "Невалиден избор!";
@@ -128,18 +129,31 @@ void vectorSize()
     }
 }
 
-// void createUser()
-// {
-//     // set index for User object
+void createUser()
+{
+    string name;
+    string surname;
+    string neighbourhood;
+    string street;
+    string strNum;
+    string phoneNumber;
+    double payment;
 
-//     cout << "Име: \n";
-//     cin >> numbersInArray;
+    cout << "Име: " << endl;
+    cin >> name;
+    cout << "Фамилия: " << endl;
+    cin >> surname;
+    cout << "Квартал: " << endl;
+    cin >> neighbourhood;
+    cout << "Улица: " << endl;
+    cin >> street;
+    cout << "Номер: " << endl;
+    cin >> strNum;
+    cout << "Тел. Номер: " << endl;
+    cin >> phoneNumber;
+    cout << "За Плащане: " << endl;
+    cin >> payment;
 
-//     if (!User)
-//     {
-//         cout << "Невалидно число за брой на елементи в масива! \n";
-//         cin.clear();            // Clear the error state
-//         cin.ignore(1024, '\n'); // Discard all characters in the stream
-//         createUser();
-//     }
-//     myArr.resize(numbersInArray);
+    User newUser(name, surname, neighbourhood, street, strNum, phoneNumber, payment);
+    usersArr.push_back(newUser);
+}
