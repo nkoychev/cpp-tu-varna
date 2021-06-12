@@ -31,8 +31,8 @@ public:
 vector<User> usersArr;
 int main()
 {
-    User user0("Ivan", "Petrov", "Levski", "Kitka", "23b", "0889458632", 32.99);
-    User user1("Petar", "Mitkov", "Troshevo", "Zdrave", "54", "0886950325", 56.54);
+    User user0("Иван", "Петров", "Левски", "Китка", "23б", "0889458632", 32.99);
+    User user1("Петър", "Митков", "Трошево", "Здраве", "54", "0886950325", 56.54);
     usersArr.push_back(user0);
     usersArr.push_back(user1);
     int initChoice, choice;
@@ -101,7 +101,7 @@ void printElements()
         {
             cout << usersArr[i].name << " " << usersArr[i].surname << " ,ж.к. " << usersArr[i].neighbourhood
                  << " , ул. " << usersArr[i].street << ", №" << usersArr[i].strNum
-                 << ", " << usersArr[i].phoneNumber << ", за плащане: " << usersArr[i].payment << endl;
+                 << ", тел. " << usersArr[i].phoneNumber << ", за плащане: " << usersArr[i].payment << endl;
         }
         cout << endl;
     }
