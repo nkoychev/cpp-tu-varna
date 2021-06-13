@@ -56,7 +56,7 @@ int main()
     // usersArr.push_back(user0);
     // usersArr.push_back(user1);
     int initChoice, choice;
-    syncArrayFile();
+    // syncArrayFile();
     do
     {
 
@@ -67,7 +67,6 @@ int main()
         cout << "4. Справка за абонат " << endl;
         cout << "5. Търсене по улица " << endl;
         cout << "6. Сортиране по сума за плащане " << endl;
-        cout << "7. Тест - запиши във файл " << endl;
         cout << "Вашият избор: ";
 
         cin >> choice;
@@ -157,6 +156,11 @@ void vectorSize()
 
 void createUser()
 {
+    if (usersArr.size() >= 30)
+    {
+        cout << "Масивът е пълен (до 30 потребителя)" << endl;
+        return;
+    }
     string name;
     string surname;
     string neighbourhood;
@@ -219,8 +223,8 @@ void syncArrayFile()
             //     cout << elem << endl;
             // }
             // // tempArr[6] = stod(tempArr[6]);
-            double converted = stod(tempArr[6]);
-            cout << converted << endl;
+            // double converted = stod(tempArr[6]);
+            // cout << converted << endl;
             // User tempUser(tempArr[0], tempArr[1], tempArr[2], tempArr[3], tempArr[4], tempArr[5], stod(tempArr[6]));
             // usersArr.push_back(tempUser);
         }
