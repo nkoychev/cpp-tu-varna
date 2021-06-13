@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <string>
 
 using namespace std;
 
@@ -218,8 +219,10 @@ void syncArrayFile()
             //     cout << elem << endl;
             // }
             // // tempArr[6] = stod(tempArr[6]);
-            User tempUser(tempArr[0], tempArr[1], tempArr[2], tempArr[3], tempArr[4], tempArr[5], stod(tempArr[6]));
-            usersArr.push_back(tempUser);
+            double converted = stod(tempArr[6]);
+            cout << converted << endl;
+            // User tempUser(tempArr[0], tempArr[1], tempArr[2], tempArr[3], tempArr[4], tempArr[5], stod(tempArr[6]));
+            // usersArr.push_back(tempUser);
         }
     }
 }
