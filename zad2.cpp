@@ -8,6 +8,7 @@ using namespace std;
 void printElements();
 bool isEmpty();
 void vectorSize();
+void syncArrayFile();
 
 void tokenize(string const &str, char delim, vector<string> &out)
 {
@@ -54,7 +55,7 @@ int main()
     // usersArr.push_back(user0);
     // usersArr.push_back(user1);
     int initChoice, choice;
-
+    syncArrayFile();
     do
     {
 
@@ -119,46 +120,14 @@ void printElements()
     cout << "Елементите във вектора/масива са: \n";
     // open file for reading
 
-    ifstream usersFile("users.txt");
-    if (usersFile.is_open())
+    // print array
+    for (int i = 0; i < usersArr.size(); i++)
     {
-        string line;
-        string name;
-        string surname;
-        string neighbourhood;
-        string street;
-        string strNum;
-        string phoneNumber;
-        double payment;
-        //     // ignore first line
-        getline(usersFile, line);
-        char delim = ',';
-
-        while (!usersFile.eof())
-        {
-            getline(usersFile, line);
-            string elem = line;
-            vector<string> tempArr;
-            tokenize(elem, delim, tempArr);
-
-            // for (auto &elem : tempArr)
-            // {
-            //     cout << elem << endl;
-            // }
-            // // tempArr[6] = stod(tempArr[6]);
-            User tempUser(tempArr[0], tempArr[1], tempArr[2], tempArr[3], tempArr[4], tempArr[5], stod(tempArr[6]));
-            usersArr.push_back(tempUser);
-        }
-        // print array
-        for (int i = 0; i < usersArr.size(); i++)
-        {
-            cout << usersArr[i].name << " " << usersArr[i].surname << " ,ж.к. " << usersArr[i].neighbourhood
-                 << " , ул. " << usersArr[i].street << ", №" << usersArr[i].strNum
-                 << ", тел. " << usersArr[i].phoneNumber << ", за плащане: " << usersArr[i].payment << endl;
-        }
-        cout << endl;
+        cout << usersArr[i].name << " " << usersArr[i].surname << " ,ж.к. " << usersArr[i].neighbourhood
+             << " , ул. " << usersArr[i].street << ", №" << usersArr[i].strNum
+             << ", тел. " << usersArr[i].phoneNumber << ", за плащане: " << usersArr[i].payment << endl;
     }
-
+    cout << endl;
     //push object to array
 
     // }
@@ -224,4 +193,33 @@ void writeFile(User user)
                   << user.street << ", " << user.strNum << ", " << user.phoneNumber << ", " << user.payment << endl;
     }
     usersFile.close();
+}
+
+void syncArrayFile()
+{
+    ifstream usersFile("users.txt");
+    if (usersFile.is_open())
+    {
+        string line;
+
+        //     // ignore first line
+        getline(usersFile, line);
+        char delim = ',';
+
+        while (!usersFile.eof())
+        {
+            getline(usersFile, line);
+            string elem = line;
+            vector<string> tempArr;
+            tokenize(elem, delim, tempArr);
+
+            // for (auto &elem : tempArr)
+            // {
+            //     cout << elem << endl;
+            // }
+            // // tempArr[6] = stod(tempArr[6]);
+            User tempUser(tempArr[0], tempArr[1], tempArr[2], tempArr[3], tempArr[4], tempArr[5], stod(tempArr[6]));
+            usersArr.push_back(tempUser);
+        }
+    }
 }
