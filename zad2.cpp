@@ -39,7 +39,7 @@ void findFamily();
 void queryUser();
 void findStreet();
 void sortArr(vector<User>);
-bool sortByPayment(const User &lhs, const User &rhs) { return lhs.payment < rhs.payment; }
+bool sortByPayment(const User &lhs, const User &rhs) { return lhs.payment > rhs.payment; }
 void tokenize(string const &str, char delim, vector<string> &out)
 {
     size_t start;
