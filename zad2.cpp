@@ -3,26 +3,9 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <algorithm>
 
 using namespace std;
-
-void printElements();
-bool isEmpty();
-void vectorSize();
-void syncArrayFile();
-
-void tokenize(string const &str, char delim, vector<string> &out)
-{
-    size_t start;
-    size_t end = 0;
-
-    while ((start = str.find_first_not_of(delim, end)) != string::npos)
-    {
-        end = str.find(delim, start);
-        out.push_back(str.substr(start, end - start));
-    }
-}
-ofstream usersFile;
 
 class User
 {
@@ -48,6 +31,27 @@ public:
 vector<User> usersArr;
 void createUser();
 void writeFile(User user);
+void printElements();
+bool isEmpty();
+void vectorSize();
+void syncArrayFile();
+void findFamily();
+void queryUser();
+void findStreet();
+void sortArr(vector<User>);
+bool sortByPayment(const User &lhs, const User &rhs) { return lhs.payment < rhs.payment; }
+void tokenize(string const &str, char delim, vector<string> &out)
+{
+    size_t start;
+    size_t end = 0;
+
+    while ((start = str.find_first_not_of(delim, end)) != string::npos)
+    {
+        end = str.find(delim, start);
+        out.push_back(str.substr(start, end - start));
+    }
+}
+ofstream usersFile;
 
 int main()
 {
@@ -55,7 +59,7 @@ int main()
     // User user1("Петър", "Митков", "Трошево", "Здраве", "54", "0886950325", 56.54);
     // usersArr.push_back(user0);
     // usersArr.push_back(user1);
-    int initChoice, choice;
+    int choice;
     // syncArrayFile();
     do
     {
@@ -88,13 +92,13 @@ int main()
             printElements();
             break;
         case 4:
-
+            queryUser();
             break;
         case 5:
-
+            findStreet();
             break;
         case 6:
-
+            sortArr(usersArr);
             break;
         default:
             cout << "Невалиден избор!";
@@ -194,8 +198,8 @@ void writeFile(User user)
     usersFile.open("users.txt", ios_base::app); // append to file
     if (usersFile.is_open())
     {
-        usersFile << user.name << ", " << user.surname << ", " << user.neighbourhood << ", "
-                  << user.street << ", " << user.strNum << ", " << user.phoneNumber << ", " << user.payment << endl;
+        usersFile << user.name << "," << user.surname << "," << user.neighbourhood << ","
+                  << user.street << "," << user.strNum << "," << user.phoneNumber << "," << user.payment << endl;
     }
     usersFile.close();
 }
@@ -225,8 +229,124 @@ void syncArrayFile()
             // // tempArr[6] = stod(tempArr[6]);
             // double converted = stod(tempArr[6]);
             // cout << converted << endl;
-            // User tempUser(tempArr[0], tempArr[1], tempArr[2], tempArr[3], tempArr[4], tempArr[5], stod(tempArr[6]));
-            // usersArr.push_back(tempUser);
+            User tempUser(tempArr[0], tempArr[1], tempArr[2], tempArr[3], tempArr[4], tempArr[5], stod(tempArr[6]));
+            usersArr.push_back(tempUser);
         }
     }
+}
+
+void findFamily()
+{
+    string surname;
+    cout << "Въведете фамилия: " << endl;
+    cin >> surname;
+    cout << "Потребители с фамилия " << surname << ": " << endl;
+    bool exist = false;
+    for (int i = 0; i < usersArr.size(); i++)
+    {
+        if (surname == usersArr[i].surname)
+        {
+            cout << usersArr[i].name << " " << usersArr[i].surname << " ,ж.к. " << usersArr[i].neighbourhood
+                 << " , ул. " << usersArr[i].street << ", №" << usersArr[i].strNum
+                 << ", тел. " << usersArr[i].phoneNumber << ", за плащане: " << usersArr[i].payment << endl;
+            exist = true;
+        }
+    }
+    string result = (exist) ? "endl;" : "Няма потребител/и с тази фамилия \n";
+    cout << result;
+}
+
+void findPhone()
+{
+    string phoneNumber;
+    cout << "Въведете тел. номер: " << endl;
+    cin >> phoneNumber;
+    bool exist = false;
+
+    for (int i = 0; i < usersArr.size(); i++)
+    {
+        if (phoneNumber == usersArr[i].phoneNumber)
+        {
+            cout << "Потребител с номер " << phoneNumber << endl;
+            cout << usersArr[i].name << " " << usersArr[i].surname << " ,ж.к. " << usersArr[i].neighbourhood
+                 << " , ул. " << usersArr[i].street << ", №" << usersArr[i].strNum
+                 << ", тел. " << usersArr[i].phoneNumber << ", за плащане: " << usersArr[i].payment << endl;
+            exist = true;
+        }
+    }
+    string result = (exist) ? "endl;" : "Няма потребител с този тел. номер \n";
+    cout << result;
+}
+
+void findStreet()
+{
+    string street;
+    cout << "Въведете улица: " << endl;
+    cin >> street;
+    bool exist = false;
+
+    cout << "Потребители живеещи на улица: " << street << endl;
+    for (int i = 0; i < usersArr.size(); i++)
+    {
+        if (street == usersArr[i].street)
+        {
+            cout << usersArr[i].name << " " << usersArr[i].surname << " ,ж.к. " << usersArr[i].neighbourhood
+                 << " , ул. " << usersArr[i].street << ", №" << usersArr[i].strNum
+                 << ", тел. " << usersArr[i].phoneNumber << ", за плащане: " << usersArr[i].payment << endl;
+            exist = true;
+        }
+    }
+    string result = (exist) ? "endl;" : "Няма потребители живеещи на тази улица \n";
+    cout << result;
+}
+
+void sortArr(vector<User> usersArr)
+{
+    vector<User> sortedArray;
+    for (int i = 0; i < usersArr.size(); i++)
+    {
+        sortedArray.push_back(usersArr[i]);
+    }
+    sort(sortedArray.begin(), sortedArray.end(), sortByPayment);
+    for (User &user : sortedArray)
+    {
+        cout << user.name << " " << user.surname << " ,ж.к. " << user.neighbourhood
+             << " , ул. " << user.street << ", №" << user.strNum
+             << ", тел. " << user.phoneNumber << ", за плащане: " << user.payment << endl;
+    }
+    cout << endl;
+}
+
+void queryUser()
+{
+
+    int choice;
+    do
+    {
+        cout << "0. Назад" << endl;
+        cout << "1. Търси по фамилия" << endl;
+        cout << "2. Търси по тел. номер" << endl;
+
+        cin >> choice;
+        cout << endl;
+        switch (choice)
+        {
+        case 0:
+            cout << "Обратно към главно меню\n";
+            return;
+        case 1:
+            findFamily();
+            break;
+        case 2:
+            findPhone();
+        }
+        if (choice >= 0 && choice <= 2)
+        {
+#ifdef __linux__
+            system("read");
+#else
+            system("pause");
+#endif
+        }
+    } while (choice != 0);
 }
