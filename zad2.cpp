@@ -1,10 +1,14 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <sstream>
+
 using namespace std;
 
 void printElements();
 bool isEmpty();
 void vectorSize();
+ofstream usersFile;
 
 class User
 {
@@ -29,6 +33,7 @@ public:
 };
 vector<User> usersArr;
 void createUser();
+void writeFile(User user);
 
 int main()
 {
@@ -37,6 +42,7 @@ int main()
     usersArr.push_back(user0);
     usersArr.push_back(user1);
     int initChoice, choice;
+
     do
     {
 
@@ -47,6 +53,7 @@ int main()
         cout << "4. Справка за абонат " << endl;
         cout << "5. Търсене по улица " << endl;
         cout << "6. Сортиране по сума за плащане " << endl;
+        cout << "7. Тест - запиши във файл " << endl;
         cout << "Вашият избор: ";
 
         cin >> choice;
@@ -98,6 +105,13 @@ void printElements()
     if (!isEmpty())
     {
         cout << "Елементите във вектора/масива са: \n";
+        // open file for reading
+
+        // getline and create object from values
+
+        //push object to array
+
+        // print array
         for (int i = 0; i < usersArr.size(); i++)
         {
             cout << usersArr[i].name << " " << usersArr[i].surname << " ,ж.к. " << usersArr[i].neighbourhood
@@ -156,4 +170,16 @@ void createUser()
 
     User newUser(name, surname, neighbourhood, street, strNum, phoneNumber, payment);
     usersArr.push_back(newUser);
+    writeFile(newUser);
+}
+
+void writeFile(User user)
+{
+    usersFile.open("users.txt", ios_base::app); // append to file
+    if (usersFile.is_open())
+    {
+        usersFile << user.name << ", " << user.surname << ", " << user.neighbourhood << ", "
+                  << user.street << ", " << user.strNum << ", " << user.phoneNumber << ", " << user.payment << endl;
+    }
+    usersFile.close();
 }
