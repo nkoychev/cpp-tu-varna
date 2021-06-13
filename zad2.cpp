@@ -8,6 +8,18 @@ using namespace std;
 void printElements();
 bool isEmpty();
 void vectorSize();
+
+void tokenize(string const &str, char delim, vector<string> &out)
+{
+    size_t start;
+    size_t end = 0;
+
+    while ((start = str.find_first_not_of(delim, end)) != string::npos)
+    {
+        end = str.find(delim, start);
+        out.push_back(str.substr(start, end - start));
+    }
+}
 ofstream usersFile;
 
 class User
@@ -37,10 +49,10 @@ void writeFile(User user);
 
 int main()
 {
-    User user0("Иван", "Петров", "Левски", "Китка", "23б", "0889458632", 32.99);
-    User user1("Петър", "Митков", "Трошево", "Здраве", "54", "0886950325", 56.54);
-    usersArr.push_back(user0);
-    usersArr.push_back(user1);
+    // User user0("Иван", "Петров", "Левски", "Китка", "23б", "0889458632", 32.99);
+    // User user1("Петър", "Митков", "Трошево", "Здраве", "54", "0886950325", 56.54);
+    // usersArr.push_back(user0);
+    // usersArr.push_back(user1);
     int initChoice, choice;
 
     do
@@ -102,15 +114,41 @@ int main()
 
 void printElements()
 {
-    if (!isEmpty())
+    // if (!isEmpty())
+    // {
+    cout << "Елементите във вектора/масива са: \n";
+    // open file for reading
+
+    ifstream usersFile("users.txt");
+    if (usersFile.is_open())
     {
-        cout << "Елементите във вектора/масива са: \n";
-        // open file for reading
+        string line;
+        string name;
+        string surname;
+        string neighbourhood;
+        string street;
+        string strNum;
+        string phoneNumber;
+        double payment;
+        //     // ignore first line
+        getline(usersFile, line);
+        char delim = ',';
 
-        // getline and create object from values
+        while (!usersFile.eof())
+        {
+            getline(usersFile, line);
+            string elem = line;
+            vector<string> tempArr;
+            tokenize(elem, delim, tempArr);
 
-        //push object to array
-
+            // for (auto &elem : tempArr)
+            // {
+            //     cout << elem << endl;
+            // }
+            // // tempArr[6] = stod(tempArr[6]);
+            User tempUser(tempArr[0], tempArr[1], tempArr[2], tempArr[3], tempArr[4], tempArr[5], stod(tempArr[6]));
+            usersArr.push_back(tempUser);
+        }
         // print array
         for (int i = 0; i < usersArr.size(); i++)
         {
@@ -120,6 +158,10 @@ void printElements()
         }
         cout << endl;
     }
+
+    //push object to array
+
+    // }
 }
 
 bool isEmpty()
